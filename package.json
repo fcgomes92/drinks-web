@@ -6,6 +6,20 @@
   "license": "MIT",
   "private": false,
   "devDependencies": {
-    "parcel-bundler": "^1.12.4"
+    "@babel/cli": "^7.6.4",
+    "@babel/core": "^7.6.4",
+    "@babel/preset-env": "^7.6.3",
+    "@vue/component-compiler-utils": "^3.0.0",
+    "nodemon": "^1.19.4",
+    "sass-loader": "^8.0.0",
+    "node-sass": "^4.13.0"
+  },
+  "dependencies": {
+    "nuxt": "^2.10.2",
+    "vue": "^2.6.10"
+  },
+  "scripts": {
+    "run:dev": "nuxt",
+    "run:prod": "nuxt build && nuxt start"
   }
 }
