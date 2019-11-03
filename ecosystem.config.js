@@ -3,10 +3,10 @@ if (process.env.NODE_ENV === "dev") {
     apps: [
       {
         name: "app",
-        script: "yarn",
+        script: "npm",
         watch: false,
         interpreter: "none",
-        args: "run:dev"
+        args: "run run:dev"
       }
     ]
   };
@@ -14,7 +14,7 @@ if (process.env.NODE_ENV === "dev") {
   module.exports = [
     {
       name: "app",
-      script: "yarn",
+      script: "npm",
       watch: false,
       interpreter: "none",
       args: "run:prod"
