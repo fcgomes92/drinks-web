@@ -1,15 +1,34 @@
 <template>
   <div class="container">
-    <div class="container__text">{{ message }}</div>
-      <nuxt-link to="/client/123">Client 123</nuxt-link>
+    <LocaleSelector />
+    <p>{{ $t("hello") }}</p>
+    <form @submit="submit" action method="post">
+      <label>
+        Login:
+        <input name="login" required v-model="login" />
+      </label>
+      <label>
+        Password:
+        <input name="password" required v-model="password" type="password" />
+      </label>
+      <button type="submit">login</button>
+    </form>
   </div>
 </template>
 
 <script>
+import LocaleSelector from "../../components/LocaleSelector";
 export default {
-  name: "App",
+  name: "Client",
+  components: { LocaleSelector },
+  methods: {
+    submit(e) {}
+  },
   data() {
     return {
+      langs: ["en", "ptBR"],
+      login: "gomes",
+      password: "gomes",
       message: "CLIENT"
     };
   }
@@ -20,6 +39,7 @@ export default {
 .container {
   height: 100%;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
 }

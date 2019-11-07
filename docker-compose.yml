@@ -1,12 +1,11 @@
 version: "3"
 services:
   web:
-    image: fcgomes92/nginx-node:latest
+    image: fcogmes92/drinks-web
     build:
       context: ./
     ports:
       - "8080:80"
-      - "3001:3000"
     environment: 
       - NODE_ENV=dev
     volumes:

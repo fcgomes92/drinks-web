@@ -1,12 +1,13 @@
 module.exports = {
   modules: ["@nuxtjs/axios"],
+  plugins: ["~/plugins/i18n"],
   srcDir: "./src",
   build: {
     devtools: process.env.NODE_ENV !== "production",
-    parallel: true,
     ssr: true,
-    mode: "universal"
+    mode: "universal",
   },
+  router: {},
   buildDir: "./dist",
   render: {
     http2: {
