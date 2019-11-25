@@ -3,7 +3,6 @@ import { parseData } from "../utils";
 export const ServerWebSocket = ({ url, onClose, onOpen, onMessage }) => {
   const handleEvent = (data = { type: null }) => {
     const { type } = data;
-    console.log("sws", type, data);
     switch (type) {
       case "servers":
         return data.servers;

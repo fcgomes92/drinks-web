@@ -17,7 +17,7 @@ if (process.env.NODE_ENV === "dev") {
       script: "npm",
       watch: false,
       interpreter: "none",
-      args: "run:prod"
+      args: "run run:prod"
     }
   ];
 }
