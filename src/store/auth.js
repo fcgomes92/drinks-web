@@ -1,14 +1,19 @@
 export const state = () => ({
-  idToken: null,
-  user: {},
-  loggedIn: false
+  user: null,
+  token: null
 });
 
 export const mutations = {
-  login(state, { user, idToken }) {
-    state = { ...state, ...{ user, idToken, loggedIn: true } };
+  setUser(state, user) {
+    state.user = user || null;
+  }
+};
+
+export const getters = {
+  user(state) {
+    return state.user;
   },
-  logout(state) {
-    state = { ...state, ...{ user: {}, idToken: null, loggedIn: false } };
+  isAuthenticated(state) {
+    return !!state.user;
   }
 };

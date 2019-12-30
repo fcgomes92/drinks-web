@@ -1,13 +1,19 @@
-version: "3"
+version: "3.5"
 services:
   web:
     image: fcogmes92/drinks-web
+    container_name: drinks-web
+    hostname: web.drinks.local
+    network_mode: bridge
     build:
       context: ./
     ports:
       - "8080:80"
-    environment: 
+    environment:
       - NODE_ENV=dev
+      - API_PREFIX=/api/
+      - API_HOST=server.drinks.local
+      - API_PORT=3000
     volumes:
       - ./:/app
       - /app/node_modules

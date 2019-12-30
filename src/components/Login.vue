@@ -1,38 +1,45 @@
 <template>
-  <div class="container">
-    <form
-      v-on:submit.prevent="handleLogin"
-      :disabled="loading"
-      class="login__form"
-    >
-      <label class="input">
-        <input required type="text" name="username" v-model="email" />
-        <span class="input__label">Email:</span>
-      </label>
-      <label class="input">
-        <input required type="password" name="password" v-model="password" />
-        <span class="input__label">Password:</span>
-      </label>
-      <button
-        class="button"
-        type="submit"
-        :disabled="loading"
-        v-bind:class="{ 'button--loading': loading }"
-      >
-        Login
-      </button>
-    </form>
-  </div>
+  <Card>
+    <template #content>
+      <form class="form" v-on:submit.prevent="handleLogin" :disabled="loading">
+        <Input
+          label="Email:"
+          required
+          type="text"
+          name="email"
+          v-model="email"
+        />
+        <Input
+          label="Password:"
+          required
+          type="password"
+          name="password"
+          v-model="password"
+        />
+        <Button type="submit" :disabled="loading" :loading="loading">
+          Login
+        </Button>
+      </form>
+    </template>
+  </Card>
 </template>
 
 <script>
 import { ClientWebSocket } from "./ClientWebSocket";
+import Card from "./Card";
+import Button from "./Button";
+import Input from "./Input";
 import * as firebase from "firebase/app";
 import "firebase/auth";
 
 export default {
   name: "Login",
-  components: {},
+  middleware: 'anonymous',
+  components: {
+    Button,
+    Input,
+    Card
+  },
   methods: {
     onSocketOpen(data) {
       console.log("open");
@@ -52,25 +59,24 @@ export default {
     },
     async handleLogin() {
       this.loading = true;
-      firebase
-        .auth()
-        .signInWithEmailAndPassword(this.email, this.password)
-        .catch(function(error) {
-          console.log(error);
-        });
+      try {
+        await firebase
+          .auth()
+          .signInWithEmailAndPassword(this.email, this.password);
+      } catch (error) {
+        this.loading = false;
+        console.log(error);
+      }
     }
   },
   mounted() {
-    try {
-      firebase.auth().onAuthStateChanged(this.handleAuthStateChange);
-    } catch (err) {}
     this.loading = false;
   },
   data() {
     return {
       loading: true,
-      email: "",
-      password: ""
+      email: "fcgomes.92@gmail.com",
+      password: "qwe123"
     };
   }
 };
@@ -87,20 +93,8 @@ export default {
   background: rgba(#ccc, 0.25);
 }
 
-.login {
-  $fieldDistance: 0.5rem 0;
-  $color: rgba(100, 10, 120, 1);
-
-  &__form {
-    display: flex;
-    flex-direction: column;
-    background-color: #fff;
-    box-sizing: border-box;
-    min-width: 10rem;
-    min-height: 3rem;
-    padding: 2.4rem;
-    border-radius: 0.5rem;
-    box-shadow: 0 10px 0 0 lighten($color, 48);
-  }
+.form {
+  display: flex;
+  flex-direction: column;
 }
 </style>

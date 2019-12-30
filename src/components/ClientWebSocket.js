@@ -1,4 +1,4 @@
-import { parseData } from "../utils";
+import parseData from "../utils/parseData";
 
 export const ClientWebSocket = ({ url, onClose, onOpen, onMessage }) => {
   const handleEvent = (data = { type: null }) => {
