@@ -12,18 +12,16 @@
           name="messageType"
           v-model="messageType"
         />
-        <Input
-          label="Message:"
-          required
-          type="text"
-          name="message"
-          v-model="message"
-        />
+        <Input label="Message:" type="text" name="message" v-model="message" />
         <Button type="submit" :disabled="loading" :loading="loading">
           Send
         </Button>
       </form>
-      <pre v-for="log in logMessage" :key="log.webId">{{ log.data }}</pre>
+      <ul class="log-list">
+        <li class="log-list__item" v-for="log in logMessage" :key="log.webId">
+          <pre>{{ log.data }}</pre>
+        </li>
+      </ul>
     </div>
     <form
       class="form"
@@ -88,10 +86,13 @@ export default {
         case "time":
           alert(data.now);
         default:
-          this.logMessage.push({
-            data: JSON.stringify({ error, code, data, type }),
-            webId
-          });
+          this.logMessage = [
+            {
+              data: JSON.stringify({ error, code, data, type }, null, 2),
+              webId
+            },
+            ...this.logMessage
+          ];
       }
     }
   },
@@ -112,13 +113,34 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import "../../layouts/_global";
 .form {
   display: flex;
   flex-direction: column;
 }
-pre {
+.log-list {
   max-width: 50vw;
-  white-space: wrap;
-  overflow: auto;
+  margin: 1rem 0;
+  padding: 0;
+  box-sizing: border-box;
+  border-bottom: solid 1rem darken($color, 1);
+  &__item {
+    margin: 0;
+    background-color: #fff;
+    align-self: center;
+    box-sizing: border-box;
+    padding: 0.5rem;
+    list-style: none;
+    display: flex;
+    overflow: auto;
+    max-height: 100%;
+    border: solid 0.2rem lighten($color, 48);
+    border-top: solid 0.2rem darken($color, 1);
+    transition: all 0.25s ease-in-out;
+    &:hover {
+      background-color: rgba(21, 21, 21, 0.05);
+      border: solid 0.2rem lighten($color, 36);
+    }
+  }
 }
 </style>
