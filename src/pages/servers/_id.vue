@@ -17,11 +17,6 @@
           Send
         </Button>
       </form>
-      <ul class="log-list">
-        <li class="log-list__item" v-for="log in logMessage" :key="log.webId">
-          <pre>{{ log.data }}</pre>
-        </li>
-      </ul>
     </div>
     <form
       class="form"
@@ -39,10 +34,12 @@
         Connect
       </Button>
     </form>
+    <LogTable :messages="logMessage" />
   </div>
 </template>
 
 <script>
+import LogTable from "../../components/LogTable";
 import Input from "../../components/Input";
 import Button from "../../components/Button";
 import Loading from "../../components/Loading";
@@ -54,7 +51,8 @@ export default {
   components: {
     Input,
     Button,
-    Loading
+    Loading,
+    LogTable
   },
   computed: {
     ...mapGetters({
@@ -89,7 +87,7 @@ export default {
           this.logMessage = [
             {
               data: JSON.stringify({ error, code, data, type }, null, 2),
-              webId
+              id: webId
             },
             ...this.logMessage
           ];
