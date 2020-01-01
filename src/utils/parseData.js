@@ -1,4 +1,4 @@
-export const parseData = (
+export default (
   next,
   err = error => {
     console.error(error);
